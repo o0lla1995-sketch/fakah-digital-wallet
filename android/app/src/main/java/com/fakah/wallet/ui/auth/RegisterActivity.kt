@@ -142,7 +142,7 @@ class RegisterActivity : AppCompatActivity() {
             .post(form.build())
             .build()
 
-        OkHttpClient.Builder().connectTimeout(20, java.util.concurrent.TimeUnit.SECONDS)
+        com.fakah.wallet.data.api.ApiClient.baseClientBuilder()
             .writeTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
             .build().newCall(request).execute().use { resp ->
                 val bodyStr = resp.body?.string() ?: return Pair(false, "NETWORK_ERROR")
