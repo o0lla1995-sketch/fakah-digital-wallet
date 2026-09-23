@@ -42,3 +42,7 @@ test-statement.pdf
 *.tar.gz
 android-tools/
 android/gradle-*.zip
+
+# leaked-file guard
+.coolify-secrets.env
+*.coolify-secrets.env
