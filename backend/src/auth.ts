@@ -6,7 +6,8 @@ import crypto from "crypto";
 import path from "path";
 import fs from "fs";
 import { config, AppError, hashPassword, verifyPassword, signAccessToken, signRefreshToken,
-         verifyRefreshToken, verifyAccessToken, AccessClaims, sha256Hex, randomHex } from "./core";
+         verifyRefreshToken, verifyAccessToken, AccessClaims, sha256Hex, randomHex,
+         toMinor, fromMinor } from "./core";
 import { query, tx } from "./db";
 import { notifyKycDecision, notifySecurity } from "./notify";
 
@@ -297,6 +298,46 @@ adminRouter.post("/admin/kyc/:userId/decision", requireAuth, requireAdmin, async
 
     await notifyKycDecision(userId, approve, reason);
     ok(res, { userId, approved: approve });
+  } catch (e) { fail(res, e); }
+});
+
+// ── admin: POST /api/admin/credit — system credit to a user wallet (audited) ──
+const creditSchema = z.object({
+  phone: z.string().regex(/^(056|059)[0-9]{7}$/),
+  currency: z.enum(["ILS", "USD", "JOD"]),
+  amount: z.union([z.string(), z.number()]),
+});
+adminRouter.post("/admin/credit", requireAuth, requireAdmin, async (req, res) => {
+  try {
+    const parsed = creditSchema.safeParse(req.body);
+    if (!parsed.success) throw new AppError("VALIDATION_ERROR", parsed.error.issues[0].message);
+    const { phone, currency } = parsed.data;
+    const amountMinor = toMinor(parsed.data.amount as any, currency);
+    const adminId = (req as any).auth.uid;
+
+    const target = await query(`SELECT id, full_name FROM users WHERE phone = $1`, [phone]);
+    if (target.rows.length === 0) throw new AppError("USER_NOT_FOUND", "target user not found");
+    const targetId = target.rows[0].id;
+
+    const result = await tx(async (c) => {
+      const r = await c.query(
+        `SELECT * FROM fn_system_credit($1, $2, $3, $4)`,
+        [adminId, targetId, currency, amountMinor]
+      );
+      await c.query(
+        `INSERT INTO admin_audit (admin_id, action, target_user, details)
+         VALUES ($1, 'system_credit', $2, $3)`,
+        [adminId, targetId, JSON.stringify({ currency, amountMinor })]
+      );
+      return r.rows[0];
+    });
+
+    ok(res, {
+      txUuid: result.out_tx_uuid,
+      phone, currency,
+      credited: `${fromMinor(amountMinor, currency)} ${currency}`,
+      newBalanceMinor: result.out_new_balance,
+    });
   } catch (e) { fail(res, e); }
 });
 
