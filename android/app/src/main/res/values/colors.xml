@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gold">#C9A84C</color>
+    <color name="goldDark">#8A6D2A</color>
+    <color name="primaryText">#1A1A1A</color>
+    <color name="textSecondary">#6B7280</color>
+    <color name="noteBg">#FBF7EC</color>
+    <color name="divider">#E5E7EB</color>
+    <color name="danger">#B3261E</color>
+    <color name="bg">#FFFFFF</color>
+</resources>

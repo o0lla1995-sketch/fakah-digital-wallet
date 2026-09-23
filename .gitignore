@@ -1,0 +1,44 @@
+# ── Fakah project-wide ignore ──
+node_modules/
+dist/
+build/
+.gradle/
+*.iml
+.idea/
+local.properties
+
+# secrets — NEVER commit
+.env
+.env.*
+!.env.example
+firebase*.json
+*.jks
+*.keystore
+keystore.properties
+secrets/
+
+# runtime data
+data/
+uploads/
+statements/
+*.log
+.pgdata*/
+.testdata/
+
+# build outputs
+android/app/build/
+android/.gradle/
+*.apk
+!release/*.apk
+*.aab
+
+# OS junk
+.DS_Store
+Thumbs.db
+fakah-release.keystore
+android/gradle-dist/
+android/local.properties
+test-statement.pdf
+*.tar.gz
+android-tools/
+android/gradle-*.zip
