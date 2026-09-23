@@ -87,7 +87,7 @@ router.post("/qr/preview", requireAuth, requireKyc, async (req, res) => {
     if (row.used_at) throw new AppError("QR_ALREADY_USED", "code already consumed");
     if (new Date(row.expires_at) < new Date()) throw new AppError("QR_EXPIRED", "code expired");
     if (row.kyc_status !== "approved") throw new AppError("PARTY_NOT_VERIFIED", "payee not verified");
-    if (row.amount_minor !== v.amountMinor || row.currency !== v.currency) {
+    if (parseInt(row.amount_minor, 10) !== v.amountMinor || row.currency !== v.currency) {
       throw new AppError("QR_PAYLOAD_MISMATCH", "payload does not match issued code");
     }
 
