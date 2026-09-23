@@ -1,6 +1,13 @@
 // test/run-e2e.js — full end-to-end test against an embedded PostgreSQL
 // Boots PG → runs migrations via server boot → exercises the full API surface.
-const EmbeddedPostgres = require("embedded-postgres").default;
+// NOTE: requires dev-only packages (x64/arm host): npm i -D embedded-postgres @embedded-postgres/linux-x64
+let EmbeddedPostgres;
+try {
+  EmbeddedPostgres = require("embedded-postgres").default;
+} catch (e) {
+  console.error("embedded-postgres not installed. Run: npm i -D embedded-postgres @embedded-postgres/linux-x64");
+  process.exit(2);
+}
 const fs = require("fs");
 
 const PG_DATA = "/home/z/my-project/fakah/.pgdata";
