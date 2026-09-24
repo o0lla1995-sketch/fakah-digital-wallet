@@ -1,87 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="سجل الحركات"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/primaryText"
-        android:layout_marginBottom="12dp" />
+    android:layout_height="match_parent">
 
     <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp">
 
-        <Spinner
-            android:id="@+id/spType"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="48dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="دفتر العمليات"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/textPrimary"/>
 
-        <Spinner
-            android:id="@+id/spCurrency"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="سجل تدقيق غير قابل للتلاعب — كل عملية موثّقة ومشفّرة"
+            android:textSize="13sp"
+            android:textColor="@color/textSecondary"/>
+
+        <!-- ═══ Filters ═══ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp">
+
+            <Spinner
+                android:id="@+id/spType"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_input_spinner"
+                android:popupBackground="@color/bgCardAlt"/>
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="1dp"/>
+
+            <Spinner
+                android:id="@+id/spCurrency"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_input_spinner"
+                android:popupBackground="@color/bgCardAlt"/>
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="1dp"/>
+
+            <ImageButton
+                android:id="@+id/btnFilter"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_chip"
+                android:src="@drawable/ic_refresh"
+                android:scaleType="centerInside"
+                android:padding="10dp"
+                app:tint="@color/primaryBright"
+                android:contentDescription="تصفية"/>
+        </LinearLayout>
+
+        <!-- ═══ Statement ═══ -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStatement"
+            style="@style/Widget.Fakah.Button.Outline"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginStart="8dp" />
+            android:layout_marginTop="10dp"
+            android:text="إصدار كشف حساب PDF رسمي"/>
+
+        <!-- ═══ List ═══ -->
+        <ListView
+            android:id="@+id/lvLedger"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="12dp"
+            android:divider="@null"
+            android:dividerHeight="8dp"
+            android:scrollbars="none"
+            android:listSelector="@android:color/transparent"/>
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="لا توجد عمليات في هذه الفترة"
+            android:textColor="@color/textHint"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:visibility="gone"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnFilter"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:text="تصفية" />
-    </LinearLayout>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp">
-
-        <FrameLayout
+            android:id="@+id/btnLoadMore"
+            style="@style/Widget.Fakah.Button.Text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ListView
-                android:id="@+id/lvLedger"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@color/divider"
-                android:dividerHeight="1dp" />
-
-            <TextView
-                android:id="@+id/tvEmpty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="لا حركات في آخر 30 يوماً"
-                android:textColor="@color/textSecondary"
-                android:visibility="gone" />
-        </FrameLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLoadMore"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="تحميل المزيد"
-        android:visibility="gone" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnStatement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="طلب كشف PDF (آخر 30 يوماً)" />
-</LinearLayout>
+            android:layout_height="48dp"
+            android:layout_marginBottom="8dp"
+            android:text="تحميل المزيد من العمليات"
+            android:visibility="gone"/>
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

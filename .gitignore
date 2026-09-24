@@ -17,8 +17,8 @@ firebase*.json
 keystore.properties
 secrets/
 
-# runtime data
-data/
+# runtime data (root-anchored so it never matches Kotlin source packages)
+/data/
 uploads/
 statements/
 *.log

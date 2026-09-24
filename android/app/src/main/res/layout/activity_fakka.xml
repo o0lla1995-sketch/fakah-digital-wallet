@@ -1,121 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="إرجاع فكة رقمية لزبون"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="6dp" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="أرسل الفكة من محفظتك — إن اختلفت عملة الزبون يُحوَّل المبلغ بسعر الصرف اللحظي تلقائياً."
-            android:textColor="@color/textSecondary"
-            android:textSize="13sp"
-            android:layout_marginBottom="16dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_quick_action"
+                android:src="@drawable/ic_back"
+                android:scaleType="centerInside"
+                android:padding="12dp"
+                app:tint="@color/textPrimary"
+                android:contentDescription="رجوع"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="إرجاع الفكة"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"/>
+
+            <Space android:layout_width="44dp" android:layout_height="1dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="رقم جوال الزبون (056/059)"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPhone"
+            android:orientation="vertical"
+            android:background="@drawable/bg_tx_row"
+            android:padding="22dp"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_icon_gold">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_fakka"
+                        app:tint="@color/accentGold"
+                        android:contentDescription=""/>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="أرسل الفكة لزبونك رقمياً"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary"/>
+            </LinearLayout>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLength="10"
-                android:textDirection="ltr" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="8dp"
+                android:text="إن اختلفت عملة الزبون يُحوَّل المبلغ تلقائياً بسعر الصرف اللحظي"
+                android:textSize="12sp"
+                android:textColor="@color/textSecondary"
+                android:lineSpacingExtra="2dp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="مبلغ الفكة"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etAmount"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:textDirection="ltr" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="16dp"
+                android:hint="رقم جوال الزبون (056 / 059)"
+                style="@style/Widget.Fakah.Input"
+                app:startIconDrawable="@drawable/ic_phone"
+                app:startIconTint="@color/textHint">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="من عملة"
-            android:textStyle="bold" />
-        <RadioGroup
-            android:id="@+id/rgFrom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton android:id="@+id/rbFromIls" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="ILS" android:checked="true" />
-            <RadioButton android:id="@+id/rbFromUsd" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_marginStart="18dp" android:text="USD" />
-            <RadioButton android:id="@+id/rbFromJod" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_marginStart="18dp" android:text="JOD" />
-        </RadioGroup>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
+                    style="@style/Text.Fakah.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:textDirection="ltr"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="إلى عملة الزبون"
-            android:textStyle="bold" />
-        <RadioGroup
-            android:id="@+id/rgTo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton android:id="@+id/rbToIls" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="ILS" android:checked="true" />
-            <RadioButton android:id="@+id/rbToUsd" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_marginStart="18dp" android:text="USD" />
-            <RadioButton android:id="@+id/rbToJod" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_marginStart="18dp" android:text="JOD" />
-        </RadioGroup>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:hint="مبلغ الفكة"
+                style="@style/Widget.Fakah.Input">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSendFakka"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="20dp"
-            android:text="إرسال الفكة (يتطلب البصمة)"
-            android:textSize="15sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAmount"
+                    style="@style/Text.Fakah.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textDirection="ltr"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp"
-            android:indeterminate="true"
-            android:visibility="gone" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="من عملتك"
+                android:textSize="13sp"
+                android:textColor="@color/textSecondary"/>
 
-        <TextView
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:padding="12dp"
-            android:text="رجوع"
-            android:textColor="@color/textSecondary" />
+            <RadioGroup
+                android:id="@+id/rgFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbFromIls"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="₪ شيكل"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:button="@null"
+                    android:background="@drawable/radio_chip"
+                    android:textColor="@drawable/radio_chip_text"
+                    android:layout_marginEnd="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/rbFromUsd"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="$ دولار"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:button="@null"
+                    android:background="@drawable/radio_chip"
+                    android:textColor="@drawable/radio_chip_text"
+                    android:layout_marginEnd="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/rbFromJod"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="د.أ دينار"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:button="@null"
+                    android:background="@drawable/radio_chip"
+                    android:textColor="@drawable/radio_chip_text"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:text="إلى عملة الزبون"
+                android:textSize="13sp"
+                android:textColor="@color/textSecondary"/>
+
+            <RadioGroup
+                android:id="@+id/rgTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbToIls"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="₪ شيكل"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:button="@null"
+                    android:background="@drawable/radio_chip"
+                    android:textColor="@drawable/radio_chip_text"
+                    android:layout_marginEnd="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/rbToUsd"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="$ دولار"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:button="@null"
+                    android:background="@drawable/radio_chip"
+                    android:textColor="@drawable/radio_chip_text"
+                    android:layout_marginEnd="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/rbToJod"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="د.أ دينار"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:button="@null"
+                    android:background="@drawable/radio_chip"
+                    android:textColor="@drawable/radio_chip_text"/>
+            </RadioGroup>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSendFakka"
+                style="@style/Widget.Fakah.Button"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="22dp"
+                android:text="إرسال الفكة (تأكيد بالبصمة)"/>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:indeterminateTint="@color/primaryBright"
+                android:visibility="gone"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

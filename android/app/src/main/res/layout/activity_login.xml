@@ -1,88 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="@color/bg"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:paddingTop="64dp"
+        android:paddingBottom="32dp">
+
+        <!-- ═══ Logo ═══ -->
+        <FrameLayout
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:background="@drawable/bg_circle_icon">
+
+            <ImageView
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_fakka"
+                app:tint="@color/primaryBright"
+                android:contentDescription=""/>
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textSize="30sp"
+            android:layout_marginTop="18dp"
+            android:text="محفظة الفكة الرقمية"
+            android:textSize="26sp"
             android:textStyle="bold"
-            android:textColor="@color/gold"
-            android:layout_marginTop="40dp" />
+            android:textColor="@color/textPrimary"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="محفظة الفكة الرقمية — الدخول"
+            android:layout_marginTop="6dp"
+            android:text="حوّل فكّتك إلى رصيد رقمي فوري"
             android:textSize="14sp"
-            android:textColor="@color/textSecondary"
-            android:layout_marginBottom="32dp" />
+            android:textColor="@color/textSecondary"/>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <!-- ═══ Form ═══ -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="رقم الجوال (056/059)"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:orientation="vertical"
+            android:background="@drawable/bg_tx_row"
+            android:padding="22dp"
+            android:layout_marginTop="32dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPhone"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLength="10"
-                android:textDirection="ltr" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="رقم الهاتف (056 / 059)"
+                style="@style/Widget.Fakah.Input"
+                app:startIconDrawable="@drawable/ic_phone"
+                app:startIconTint="@color/textHint">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="كلمة المرور"
-            app:passwordToggleEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
+                    style="@style/Text.Fakah.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:textDirection="ltr"
+                    android:maxLength="10"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPassword"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="14dp"
+                android:hint="كلمة المرور"
+                style="@style/Widget.Fakah.Input"
+                app:startIconDrawable="@drawable/ic_lock"
+                app:startIconTint="@color/textHint"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/textHint">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogin"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    style="@style/Text.Fakah.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textDirection="ltr"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogin"
+                style="@style/Widget.Fakah.Button"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="22dp"
+                android:text="تسجيل الدخول"/>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:indeterminateTint="@color/primaryBright"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ليس لديك حساب؟"
+                android:textSize="14sp"
+                android:textColor="@color/textSecondary"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoRegister"
+                style="@style/Widget.Fakah.Button.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="أنشئ حساباً جديداً"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="28dp"
-            android:text="دخول"
-            android:textSize="16sp" />
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:indeterminate="true"
-            android:visibility="gone" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_quick_action"
+            android:padding="14dp"
+            android:layout_marginTop="28dp">
 
-        <TextView
-            android:id="@+id/btnGoRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:padding="12dp"
-            android:text="ليس لديك حساب؟ أنشئ حساباً جديداً"
-            android:textColor="@color/gold"
-            android:textStyle="bold" />
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_shield"
+                app:tint="@color/primaryBright"
+                android:contentDescription=""/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:text="دخول محمي بالبصمة بعد أول تسجيل دخول"
+                android:textSize="12sp"
+                android:textColor="@color/textSecondary"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -1,150 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="@color/bg"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="32dp">
+
+        <!-- ═══ Header ═══ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_quick_action"
+                android:src="@drawable/ic_back"
+                android:scaleType="centerInside"
+                android:padding="12dp"
+                app:tint="@color/textPrimary"
+                android:contentDescription="رجوع"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="إنشاء حساب جديد"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"/>
+
+            <Space
+                android:layout_width="44dp"
+                android:layout_height="1dp"/>
+        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="إنشاء حساب جديد"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/primaryText"
-            android:layout_marginBottom="20dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="الاسم الكامل (كما في الهوية)"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etFullName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="رقم الهوية (9 أرقام)"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNationalId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="9"
-                android:textDirection="ltr" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="رقم الجوال (056 أو 059)"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLength="10"
-                android:textDirection="ltr" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="كلمة المرور (8 أحرف+ أرقام)"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="تأكيد كلمة المرور"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPassword2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="مستندات التوثيق (إلزامية)"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:textColor="@color/primaryText" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPickFront"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="رفع صورة الهوية (الوجه الأمامي)" />
+            android:gravity="center"
+            android:text="التسجيل مجاني — التوثيق يستغرق دقائق"
+            android:textSize="13sp"
+            android:textColor="@color/textSecondary"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPickBack"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        <!-- ═══ Form card ═══ -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="رفع صورة الهوية (الوجه الخلفي)" />
+            android:orientation="vertical"
+            android:background="@drawable/bg_tx_row"
+            android:padding="22dp"
+            android:layout_marginTop="20dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPickSelfie"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="رفع صورة سيلفي" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="الاسم الكامل (كما في الهوية)"
+                style="@style/Widget.Fakah.Input"
+                app:startIconDrawable="@drawable/ic_user"
+                app:startIconTint="@color/textHint">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:text="إنشاء الحساب"
-            android:textSize="16sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFullName"
+                    style="@style/Text.Fakah.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp"
-            android:indeterminate="true"
-            android:visibility="gone" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="رقم الهوية الفلسطينية (9 أرقام)"
+                style="@style/Widget.Fakah.Input"
+                app:startIconDrawable="@drawable/ic_id"
+                app:startIconTint="@color/textHint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNationalId"
+                    style="@style/Text.Fakah.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textDirection="ltr"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="رقم الهاتف (056 / 059)"
+                style="@style/Widget.Fakah.Input"
+                app:startIconDrawable="@drawable/ic_phone"
+                app:startIconTint="@color/textHint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
+                    style="@style/Text.Fakah.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:textDirection="ltr"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="كلمة المرور (8+ خانات)"
+                style="@style/Widget.Fakah.Input"
+                app:startIconDrawable="@drawable/ic_lock"
+                app:startIconTint="@color/textHint"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/textHint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    style="@style/Text.Fakah.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textDirection="ltr"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="تأكيد كلمة المرور"
+                style="@style/Widget.Fakah.Input"
+                app:startIconDrawable="@drawable/ic_lock"
+                app:startIconTint="@color/textHint"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/textHint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword2"
+                    style="@style/Text.Fakah.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textDirection="ltr"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ═══ KYC uploads ═══ -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="4dp"
+                android:text="مستندات التوثيق (KYC)"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="صور واضحة تسرّع عملية الاعتماد"
+                android:textSize="12sp"
+                android:textColor="@color/textHint"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPickFront"
+                style="@style/Widget.Fakah.Button.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="6dp"
+                app:icon="@drawable/ic_camera"
+                app:iconTint="@color/primaryBright"
+                android:text="رفع صورة الهوية (الوجه الأمامي)"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPickBack"
+                style="@style/Widget.Fakah.Button.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                app:icon="@drawable/ic_camera"
+                app:iconTint="@color/primaryBright"
+                android:text="رفع صورة الهوية (الوجه الخلفي)"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPickSelfie"
+                style="@style/Widget.Fakah.Button.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                app:icon="@drawable/ic_user"
+                app:iconTint="@color/primaryBright"
+                android:text="رفع صورة سيلفي"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegister"
+                style="@style/Widget.Fakah.Button"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="22dp"
+                android:text="إنشاء الحساب وإرسال التوثيق"/>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:indeterminateTint="@color/primaryBright"
+                android:visibility="gone"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:padding="12dp"
-            android:text="العودة لتسجيل الدخول"
-            android:textColor="@color/textSecondary" />
+            android:gravity="center"
+            android:text="بالتسجيل أنت توافق على الشروط وسياسة الخصوصية"
+            android:textSize="11sp"
+            android:textColor="@color/textHint"/>
     </LinearLayout>
 </ScrollView>

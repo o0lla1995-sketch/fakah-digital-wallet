@@ -2,7 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,159 +15,234 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="عمليات QR اللحظية"
-            android:textSize="22sp"
+            android:text="مدفوعات QR"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/primaryText" />
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="استلم أو ادفع في أقل من ثانية — رمز ديناميكي آمن"
+            android:textSize="13sp"
+            android:textColor="@color/textSecondary"/>
 
         <!-- ═══ استلام: توليد كود ═══ -->
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            android:layout_marginTop="16dp">
+            android:orientation="vertical"
+            android:background="@drawable/bg_tx_row"
+            android:padding="20dp"
+            android:layout_marginTop="18dp">
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_icon">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_qr_big"
+                        app:tint="@color/primaryBright"
+                        android:contentDescription=""/>
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="توليد كود لاستلام مبلغ"
+                    android:layout_marginStart="12dp"
+                    android:text="توليد رمز لاستلام مبلغ"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginBottom="10dp" />
+                    android:textColor="@color/textPrimary"/>
+            </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="المبلغ المطلوب"
+                style="@style/Widget.Fakah.Input">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAmount"
+                    style="@style/Text.Fakah.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="المبلغ"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etAmount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:textDirection="ltr" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:inputType="numberDecimal"
+                    android:textDirection="ltr"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <RadioGroup
-                    android:id="@+id/rgCurrency"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-                    <RadioButton
-                        android:id="@+id/rbIls"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ILS"
-                        android:checked="true" />
-                    <RadioButton
-                        android:id="@+id/rbUsd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:text="USD" />
-                    <RadioButton
-                        android:id="@+id/rbJod"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:text="JOD" />
-                </RadioGroup>
+            <RadioGroup
+                android:id="@+id/rgCurrency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="14dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnGenerate"
-                    android:layout_width="match_parent"
+                <RadioButton
+                    android:id="@+id/rbIls"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="₪ شيكل"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:button="@null"
+                    android:background="@drawable/radio_chip"
+                    android:textColor="@drawable/radio_chip_text"
+                    android:layout_marginEnd="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/rbUsd"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="$ دولار"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:button="@null"
+                    android:background="@drawable/radio_chip"
+                    android:textColor="@drawable/radio_chip_text"
+                    android:layout_marginEnd="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/rbJod"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="د.أ دينار"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:button="@null"
+                    android:background="@drawable/radio_chip"
+                    android:textColor="@drawable/radio_chip_text"/>
+            </RadioGroup>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGenerate"
+                style="@style/Widget.Fakah.Button"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:text="توليد الرمز"/>
+
+            <LinearLayout
+                android:id="@+id/cardQrResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="#FFFFFF"
+                android:padding="20dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/ivQr"
+                    android:layout_width="240dp"
+                    android:layout_height="240dp"
+                    android:contentDescription="QR code"/>
+
+                <TextView
+                    android:id="@+id/tvQrAmount"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="توليد الكود" />
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#0A0E1A"
+                    android:textDirection="ltr"/>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardQrResult"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvQrExpiry"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    android:layout_marginTop="14dp"
-                    android:visibility="gone">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:padding="14dp">
-                        <ImageView
-                            android:id="@+id/ivQr"
-                            android:layout_width="260dp"
-                            android:layout_height="260dp"
-                            android:contentDescription="QR code" />
-                        <TextView
-                            android:id="@+id/tvQrAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/goldDark" />
-                        <TextView
-                            android:id="@+id/tvQrExpiry"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/textSecondary"
-                            android:layout_marginTop="4dp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                    android:textColor="#6B7C95"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"/>
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvQrHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textColor="@color/textSecondary"
+            android:textColor="@color/textHint"
             android:textSize="12sp"
-            android:gravity="center" />
+            android:gravity="center"/>
 
         <!-- ═══ دفع: مسح كود ═══ -->
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_tx_row"
+            android:padding="20dp"
             android:layout_marginTop="20dp">
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_circle_icon_blue">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_scan_big"
+                        app:tint="@color/accentBlue"
+                        android:contentDescription=""/>
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="دفع بمسح كود"
+                    android:layout_marginStart="12dp"
+                    android:text="ادفع بمسح رمز QR"
                     android:textStyle="bold"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="امسح كود الدافع المستلم، أكّد المبلغ، ثم أكّد بصمتك — تُنفَّذ العملية خلال أقل من ثانية."
-                    android:textColor="@color/textSecondary"
-                    android:textSize="13sp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnScan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="فتح الكاميرا والمسح" />
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary"/>
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="وجّه كاميرا الهاتف نحو رمز التاجر لإتمام الدفع فوراً"
+                android:textSize="13sp"
+                android:textColor="@color/textSecondary"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnScan"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:text="فتح الماسح و الدفع"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/onPrimary"
+                android:background="@drawable/bg_btn_scan"
+                app:backgroundTint="@null"
+                app:rippleColor="#3306281B"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

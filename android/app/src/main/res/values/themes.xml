@@ -1,18 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Fakah" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/goldDark</item>
-        <item name="colorPrimaryVariant">@color/gold</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">@color/gold</item>
-        <item name="colorSecondaryVariant">@color/goldDark</item>
-        <item name="colorOnSecondary">#1A1A1A</item>
-        <item name="android:statusBarColor">@color/primaryText</item>
+
+    <style name="Theme.Fakah" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primaryDeep</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorSecondary">@color/accentBlue</item>
+        <item name="colorSecondaryVariant">@color/accentGold</item>
+        <item name="colorOnSecondary">#0A1226</item>
+        <item name="colorSurface">@color/bgCard</item>
+        <item name="colorOnSurface">@color/textPrimary</item>
+        <item name="android:colorBackground">@color/bg</item>
         <item name="android:windowBackground">@color/bg</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/bgNav</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="colorError">@color/danger</item>
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
+        <item name="android:textColorHint">@color/textHint</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Fakah.Dialog</item>
     </style>
 
-    <style name="Theme.Fakah.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">@color/primaryText</item>
-        <item name="android:statusBarColor">@color/primaryText</item>
+    <style name="Theme.Fakah.Splash" parent="Theme.Fakah">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <item name="android:statusBarColor">@color/bg</item>
     </style>
+
+    <style name="ThemeOverlay.Fakah.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:windowBackground">@color/bgCard</item>
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.Fakah.DialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.Fakah.DialogButton</item>
+    </style>
+
+    <style name="Widget.Fakah.DialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/primaryBright</item>
+    </style>
+
 </resources>

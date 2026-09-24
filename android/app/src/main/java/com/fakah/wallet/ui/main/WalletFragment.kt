@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.fakah.wallet.R
 import com.fakah.wallet.data.api.ApiClient
 import com.fakah.wallet.data.api.Envelope
 import com.fakah.wallet.data.api.WalletDto
@@ -25,6 +25,10 @@ class WalletFragment : Fragment() {
     private var _binding: FragmentWalletBinding? = null
     private val binding get() = _binding!!
 
+    // balances cache + privacy toggle (eye)
+    private val balances = mutableMapOf<String, String>()
+    private var amountsHidden = false
+
     private val liveListener: (String, JSONObject) -> Unit = { type, payload ->
         if (type == "wallet_update") {
             val ccy = payload.optString("ccy")
@@ -33,7 +37,7 @@ class WalletFragment : Fragment() {
             view?.post {
                 if (_binding == null) return@post
                 updateCard(ccy, balance)
-                toast("تحديث لحظي: عملية جديدة ($tx.take(8))")
+                toast("تحديث لحظي: عملية جديدة (${tx.take(8)})")
                 reloadWallets()
             }
         }
@@ -52,6 +56,7 @@ class WalletFragment : Fragment() {
         binding.btnTransfer.setOnClickListener { startActivity(Intent(requireContext(), TransferActivity::class.java)) }
         binding.btnFakka.setOnClickListener { startActivity(Intent(requireContext(), FakkaActivity::class.java)) }
         binding.btnConvert.setOnClickListener { startActivity(Intent(requireContext(), ConvertActivity::class.java)) }
+        binding.btnEye.setOnClickListener { togglePrivacy() }
         LiveSocket.addListener(liveListener)
         reloadWallets()
     }
@@ -62,15 +67,37 @@ class WalletFragment : Fragment() {
         super.onDestroyView()
     }
 
+    /** Toggle between real balances and masked dots (privacy on public screens). */
+    private fun togglePrivacy() {
+        amountsHidden = !amountsHidden
+        binding.btnEye.setImageResource(
+            if (amountsHidden) R.drawable.ic_eye_off else R.drawable.ic_eye
+        )
+        renderBalances()
+    }
+
     private fun updateCard(ccy: String, balanceMinor: String) {
         try {
             val value = (balanceMinor.toLong()) / scaleOf(ccy)
-            when (ccy) {
-                "ILS" -> binding.tvBalanceIls.text = formatAmount(value, ccy)
-                "USD" -> binding.tvBalanceUsd.text = formatAmount(value, ccy)
-                "JOD" -> binding.tvBalanceJod.text = formatAmount(value, ccy)
-            }
+            balances[ccy] = formatAmount(value, ccy)
+            renderBalances()
         } catch (_: Exception) { }
+    }
+
+    private fun renderBalances() {
+        if (_binding == null) return
+        val ils = balances["ILS"] ?: "0.00 ₪"
+        val usd = balances["USD"] ?: "0.00 $"
+        val jod = balances["JOD"] ?: "0.000 د.أ"
+        if (amountsHidden) {
+            binding.tvBalanceIls.text = "••••"
+            binding.tvBalanceUsd.text = "••••"
+            binding.tvBalanceJod.text = "••••"
+        } else {
+            binding.tvBalanceIls.text = ils
+            binding.tvBalanceUsd.text = usd
+            binding.tvBalanceJod.text = jod
+        }
     }
 
     private fun scaleOf(ccy: String) = when (ccy) { "JOD" -> 1000.0; else -> 100.0 }

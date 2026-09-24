@@ -1,11 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="gold">#C9A84C</color>
-    <color name="goldDark">#8A6D2A</color>
-    <color name="primaryText">#1A1A1A</color>
-    <color name="textSecondary">#6B7280</color>
-    <color name="noteBg">#FBF7EC</color>
-    <color name="divider">#E5E7EB</color>
-    <color name="danger">#B3261E</color>
-    <color name="bg">#FFFFFF</color>
+    <!-- ═══════════════ Fakah Dark Fintech Design System ═══════════════ -->
+
+    <!-- Backgrounds -->
+    <color name="bg">#0A0E1A</color>
+    <color name="bgSurface">#131A2C</color>
+    <color name="bgCard">#1A2336</color>
+    <color name="bgCardAlt">#202B44</color>
+    <color name="bgInput">#0E1524</color>
+    <color name="bgNav">#0E1526</color>
+
+    <!-- Brand / Primary (Emerald) -->
+    <color name="primary">#00C27E</color>
+    <color name="primaryBright">#00D483</color>
+    <color name="primaryDeep">#00A26B</color>
+    <color name="onPrimary">#06281B</color>
+    <color name="primarySoft">#0C3324</color>
+
+    <!-- Accents -->
+    <color name="accentBlue">#4C8DFF</color>
+    <color name="blueSoft">#16294F</color>
+    <color name="accentGold">#FFC85C</color>
+    <color name="goldSoft">#33290F</color>
+
+    <!-- Text -->
+    <color name="textPrimary">#F4F7FC</color>
+    <color name="textSecondary">#9DAEC5</color>
+    <color name="textHint">#6B7C95</color>
+
+    <!-- Lines / strokes -->
+    <color name="divider">#1E2A45</color>
+    <color name="cardStroke">#283656</color>
+    <color name="inputStroke">#2A3A5C</color>
+
+    <!-- States -->
+    <color name="danger">#FF6B6B</color>
+    <color name="dangerSoft">#3A1D22</color>
+    <color name="success">#00D483</color>
+    <color name="warning">#FFC85C</color>
+    <color name="warningSoft">#33290F</color>
+
+    <!-- Hero gradient (deep emerald) -->
+    <color name="heroStart">#0B5C3F</color>
+    <color name="heroCenter">#0A8F60</color>
+    <color name="heroEnd">#06342A</color>
+
+    <!-- Currency -->
+    <color name="ilsColor">#00D483</color>
+    <color name="usdColor">#4C8DFF</color>
+    <color name="jodColor">#FFC85C</color>
+
+    <!-- Legacy aliases (kept so old refs never break) -->
+    <color name="gold">#FFC85C</color>
+    <color name="goldDark">#FFC85C</color>
+    <color name="primaryText">#F4F7FC</color>
+    <color name="textSecondaryOld">#9DAEC5</color>
+    <color name="noteBg">#33290F</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

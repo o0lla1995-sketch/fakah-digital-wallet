@@ -1,12 +1,13 @@
 package com.fakah.wallet.ui.main
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.fakah.wallet.R
 import com.fakah.wallet.data.api.ApiClient
 import com.fakah.wallet.data.api.Envelope
 import com.fakah.wallet.data.api.LedgerEntry
@@ -113,17 +114,64 @@ class LedgerFragment : Fragment() {
         }
     }
 
+    // ── ledger rows (custom designed rows: icon + title + colored amount) ──
+    private val isoFmt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
+    private val rowFmt = SimpleDateFormat("MM-dd HH:mm", Locale.US)
+    private data class RowUi(
+        val title: String, val subtitle: String, val amount: String,
+        val incoming: Boolean, val icon: Int, val iconBg: Int, val iconTint: Int
+    )
+
+    private fun displayTime(iso: String?): String = try {
+        rowFmt.format(isoFmt.parse(iso ?: "") ?: Date(0))
+    } catch (_: Exception) {
+        (iso ?: "").take(16).replace('T', ' ')
+    }
+
     private fun render() {
-        val fmt = SimpleDateFormat("MM-dd HH:mm", Locale.US)
-        val lines = items.map { e ->
-            val sign = if (e.direction == "debit") "-" else "+"
-            val who = e.counterparty ?: "—"
+        val rows = items.map { e ->
+            val incoming = e.direction != "debit"
+            val sign = if (incoming) "+" else "-"
             val typeAr = when (e.type) {
-                "qr_payment" -> "دفع QR"; "fakka_deposit" -> "فكة"; "p2p_transfer" -> "تحويل"; else -> "صرف"
+                "qr_payment" -> "دفع QR"
+                "fakka_deposit" -> "فكة رقمية"
+                "p2p_transfer" -> "تحويل"
+                else -> "صرف عملات"
             }
-            "%s | %s %s %s | %s".format(fmt.format(Date(e.occurredAt)), sign, e.amount, e.currency, "$typeAr · $who")
+            val who = e.counterparty ?: ""
+            val (icon, bg, tint) = when (e.type) {
+                "qr_payment" -> Triple(R.drawable.ic_qr_scan, R.drawable.bg_circle_icon, R.color.primaryBright)
+                "fakka_deposit" -> Triple(R.drawable.ic_fakka, R.drawable.bg_circle_icon_gold, R.color.accentGold)
+                "p2p_transfer" -> Triple(R.drawable.ic_send, R.drawable.bg_circle_icon, R.color.primaryBright)
+                else -> Triple(R.drawable.ic_convert, R.drawable.bg_circle_icon_blue, R.color.accentBlue)
+            }
+            RowUi(
+                title = typeAr,
+                subtitle = listOf(displayTime(e.occurredAt), who).filter { it.isNotBlank() }.joinToString(" · "),
+                amount = "$sign${e.amount} ${e.currency}",
+                incoming = incoming, icon = icon, iconBg = bg, iconTint = tint
+            )
         }
-        binding.lvLedger.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, lines)
+        binding.lvLedger.adapter = object : ArrayAdapter<RowUi>(requireContext(), R.layout.item_ledger, rows) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val v = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_ledger, parent, false)
+                val r = getItem(position)!!
+                val icon = v.findViewById<android.widget.ImageView>(R.id.rowIcon)
+                icon.setImageResource(r.icon)
+                v.findViewById<View>(R.id.rowIconBg).setBackgroundResource(r.iconBg)
+                icon.setColorFilter(android.graphics.Color.parseColor(
+                    if (r.iconTint == R.color.primaryBright) "#00D483"
+                    else if (r.iconTint == R.color.accentGold) "#FFC85C"
+                    else "#4C8DFF"
+                ))
+                v.findViewById<android.widget.TextView>(R.id.tvTitle).text = r.title
+                v.findViewById<android.widget.TextView>(R.id.tvSubtitle).text = r.subtitle
+                val amount = v.findViewById<android.widget.TextView>(R.id.tvAmount)
+                amount.text = r.amount
+                amount.setTextColor(android.graphics.Color.parseColor(if (r.incoming) "#00D483" else "#FF6B6B"))
+                return v
+            }
+        }
         binding.tvEmpty.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
         binding.btnLoadMore.visibility = if (cursor != null) View.VISIBLE else View.GONE
     }
