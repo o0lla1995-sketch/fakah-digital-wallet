@@ -2,6 +2,8 @@
 
 A complete FinTech system that solves the **"Fakka" (small change) problem** in the Palestinian market by turning physical change into instantly-transferable digital balances between customers and merchants.
 
+> 📲 **Download the signed Release APK**: [v1.0.0 Release](https://github.com/o0lla1995-sketch/fakah-digital-wallet/releases/tag/v1.0.0) — production build, pre-configured to the live API (`https://fakah.130.61.171.201.sslip.io`) with SSL pinning.
+
 ## What's inside
 
 | Part | Tech | Notes |
